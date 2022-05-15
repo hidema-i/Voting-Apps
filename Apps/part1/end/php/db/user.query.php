@@ -19,19 +19,19 @@ class UserQuery
   }
 
   //registerのdb
-  public static function insert($id, $pwd, $nickname)
+  public static function insert($user)
   {
 
     $db = new DataSource;
     $sql = 'insert into users(id, pwd, nickname) values (:id,:pwd,:nickname)';
 
     //ハッシュ化 ①どれを②アルゴリズム
-    $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+    $user->pwd = password_hash($user->pwd, PASSWORD_DEFAULT);
     //isertする
     return $db->execute($sql, [
-      ':id' => $id,
-      ':pwd' => $pwd,
-      ':nickname' => $nickname,
+      ':id' => $user->id,
+      ':pwd' => $user->pwd,
+      ':nickname' => $user->nickname,
     ]);
   }
 }
