@@ -20,9 +20,12 @@ function route($rpath, $method)
       return;
     }
 
-    require_once $targetfile;
 
+    require_once $targetfile;
+    // echo $rpath;
+    $rpath = str_replace('/', '\\', $rpath);
     $fn = "\\controller\\{$rpath}\\{$method}";
+
     $fn();
   } catch (Throwable $e) {
     Msg::push(Msg::DEBUG, $e->getMessage());

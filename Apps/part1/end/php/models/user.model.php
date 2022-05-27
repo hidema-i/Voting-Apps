@@ -13,28 +13,26 @@ class UserModel extends AbstractModel
 
   protected static $_SESSION_NAME = '_user';
 
-  public function isvalidateId()
+  public function isValidId()
   {
     return static::validateId($this->id);
   }
 
   public static function validateId($val)
-
   {
     $res = true;
 
     if (empty($val)) {
+
       Msg::push(Msg::ERROR, 'ユーザーIDを入力してください。');
       $res = false;
     } else {
 
-      //strlenは渡ってきた文字列を判定
       if (strlen($val) > 10) {
-        Msg::push(Msg::ERROR, 'ユーザーIDは10桁以下で入力してください。');
+        Msg::push(Msg::ERROR, 'ユーザーIDは１０桁以下で入力してください。');
         $res = false;
       }
 
-      //半角英数字
       if (!is_alnum($val)) {
         Msg::push(Msg::ERROR, 'ユーザーIDは半角英数字で入力してください。');
         $res = false;
