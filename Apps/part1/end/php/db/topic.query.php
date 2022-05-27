@@ -70,6 +70,21 @@ class TopicQuery
 
         return $result;
     }
+
+    public static function incrementViewCount($topic)
+    {
+        if (!$topic->isValidId()) {
+            return false;
+        }
+
+        $db = new DataSource;
+
+        $sql = 'update topics set views = views + 1 where id = :id';
+
+        return $db->execute($sql, [
+            ':id' => $topic->id
+        ]);
+    }
     // public static function fetchPublishedTopics() {
 
     //     $db = new DataSource;

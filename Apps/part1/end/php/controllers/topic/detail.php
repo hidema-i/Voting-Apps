@@ -4,15 +4,15 @@ namespace controller\topic\detail;
 
 use db\CommentQuery;
 use db\TopicQuery;
-use lib\Auth;
 use lib\Msg;
 use model\TopicModel;
-use model\UserModel;
 
 function get()
 {
   $topic = new TopicModel;
   $topic->id = get_param('topic_id', null, false);
+
+  TopicQuery::incrementViewCount($topic);
 
   $fetchedTopic = TopicQuery::fetchById($topic);
   $comments = CommentQuery::fetchByTopicId($topic);
