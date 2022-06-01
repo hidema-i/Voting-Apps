@@ -13,12 +13,12 @@ class UserModel extends AbstractModel
 
   protected static $_SESSION_NAME = '_user';
 
-  public function isValidId()
+  public function isValidId(): bool
   {
     return static::validateId($this->id);
   }
 
-  public static function validateId($val)
+  public static function validateId($val): bool
   {
     $res = true;
 
