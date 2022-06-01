@@ -4,6 +4,7 @@ namespace view\home;
 
 function index($topics)
 {
+  $topics = escape($topics);
   $topic = array_shift($topics);
   \partials\topic_header_item($topic, true);
 ?>

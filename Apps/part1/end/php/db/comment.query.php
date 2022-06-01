@@ -35,6 +35,30 @@ class CommentQuery
 
         return $result;
     }
+
+    public static function insert($comment)
+    {
+
+        ///値のチェック
+        if (!($comment->isValidTopicId()
+            * $comment->isValidBody()
+            * $comment->isValidAgree())) {
+            return false;
+        }
+
+        $db = new DataSource;
+        $sql = 'insert into comments
+            (topic_id, agree, body, user_id) 
+        values 
+            (:topic_id, :agree, :body, :user_id)';
+
+        return $db->execute($sql, [
+            ':topic_id' => $comment->topic_id,
+            ':agree' => $comment->agree,
+            ':body' => $comment->body,
+            ':user_id' => $comment->user_id,
+        ]);
+    }
     // public static function fetchPublishedTopics() {
 
     //     $db = new DataSource;

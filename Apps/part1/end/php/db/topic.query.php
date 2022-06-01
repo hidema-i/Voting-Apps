@@ -144,6 +144,30 @@ class TopicQuery
             ':user_id' => $user->id,
         ]);
     }
+
+    public static function incrementLikesOrDislikes($comment)
+    {
+
+        //値のチェック
+        if (!($comment->isValidTopicId()
+            * $comment->isValidAgree()
+        )) {
+            return false;
+        }
+
+        $db = new DataSource;
+
+        if ($comment->agree) {
+            $sql = 'update topics set likes = likes + 1  where id = :topic_id';
+        } else {
+            $sql = 'update topics set dislikes = likes + 1  where id = :topic_id';
+        }
+
+
+        return $db->execute($sql, [
+            ':topic_id' => $comment->topic_id,
+        ]);
+    }
     // public static function fetchPublishedTopics() {
 
     //     $db = new DataSource;
