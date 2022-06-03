@@ -7,7 +7,7 @@ use lib\Auth;
 function topic_header_item($topic, $from_top_page)
 {
 ?>
-  <div class="row">
+  <div class="row my-5">
     <div class="col">
       <!-- 左 -->
       <?php chart($topic); ?>
@@ -27,11 +27,7 @@ function chart($topic)
 {
 ?>
   <canvas id="chart" width="400" height="400" data-likes="<?php echo $topic->likes; ?>" data-dislikes="<?php echo $topic->dislikes; ?>"></canvas>
-  <style>
-    #chart {
-      background-color: gray;
-    }
-  </style>
+
 <?php
 
 }
@@ -74,18 +70,18 @@ function comment_form($topic)
 {
 ?>
   <?php if (Auth::isLogin()) : ?>
-    <form action="<?php the_url('topic/detail'); ?>" method="POST">
+    <form action="<?php the_url('topic/detail'); ?>" method="POST" novalidate autocomplete="off">
       <span class="h4">あなたは賛成？それとも反対？</span>
       <input type="hidden" name="topic_id" value="<?php echo $topic->id; ?>">
       <div class="form-group">
-        <textarea class="w-100 border-light" name="body" id="body" rows="5"></textarea>
+        <textarea class="w-100 border-light" name="body" id="body" rows="5" maxlength="100"></textarea>
       </div>
 
       <div class="container">
         <div class="row h4 form-group">
           <div class="col-auto d-flex align-items-center pl-0">
             <div class="form-check-inline">
-              <input class="form-check-input" type="radio" id="agree" name="agree" value="1" checked />
+              <input class="form-check-input" type="radio" id="agree" name="agree" value="1" required checked />
               <label for="agree" class="form-check-label">賛成</label>
             </div>
             <div class="form-check-inline">
